@@ -2,14 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
+const multer = require('multer'); // Import multer để xử lý file upload
+const path = require('path'); // Import path để làm việc với file hệ thống
 
 // Sử dụng file JSON tài khoản dịch vụ từ Firebase
-const serviceAccount = require('/Users/macbookprocuaphi/Documents/nodeExample05/nodeExample05/node/nodeexample04-firebase-adminsdk-v0m7o-e244634430.json'); // Thay bằng đường dẫn thực tế
+const serviceAccount = require('/Users/macbookprocuaphi/Documents/nodeExample05/nodeExample05/node/nodeexample04-firebase-adminsdk-v0m7o-193fa06c5b.json'); // Thay bằng đường dẫn thực tế
 
 // Khởi tạo Firebase Admin SDK
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    
 });
 
 // Khởi tạo Firestore
@@ -20,23 +21,32 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Kiểm tra kết nối đến Firestore
-db.collection('trees').get()
-    .then(snapshot => {
-        if (snapshot.empty) {
-            console.log('Không tìm thấy dữ liệu trong collection "trees".');
-        } else {
-            console.log('Kết nối thành công tới Firestore. Dữ liệu trong "trees":');
-            snapshot.forEach(doc => {
-                console.log(doc.id, '=>', doc.data());
-            });
-        }
-    })
-    .catch(err => {
-        console.error('Lỗi kết nối tới Firestore:', err);
-    });
+// Phục vụ các file tĩnh từ thư mục "public"
+app.use(express.static('public'));
 
-// Route để lấy dữ liệu từ Firebase
+// Cấu hình Multer để lưu file vào thư mục "public/images"
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images'); // Thư mục lưu file upload
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Đặt tên file với thời gian hiện tại để tránh trùng lặp
+    }
+});
+const upload = multer({ storage: storage });
+
+// Route upload ảnh
+app.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    // Gửi lại URL đầy đủ của ảnh đã tải lên
+    const imageUrl = `http://localhost:5000/images/${req.file.filename}`; // Trả về URL đầy đủ để sử dụng
+    res.json({ imageUrl });
+});
+
+// Kiểm tra kết nối đến Firestore và lấy danh sách cây
 app.get('/trees', async (req, res) => {
     try {
         const snapshot = await db.collection('trees').get();

@@ -93,6 +93,7 @@ table {
 table thead {
   background-color: #d3e0d3;
   font-weight: bold;
+  
 }
 
 table th, table td {
@@ -103,6 +104,11 @@ table th, table td {
 
 table th {
   color: #4a5b45;
+  text-align: center;
+}
+
+table td {
+  vertical-align: middle; /* Căn giữa nội dung các ô theo chiều dọc */
 }
 
 table img {
@@ -110,19 +116,32 @@ table img {
   border-radius: 5px;
 }
 
+/* Căn chỉnh các biểu tượng trong cột Actions */
 .actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center; /* Căn giữa các biểu tượng theo chiều dọc */
+  height: 100%;
+  
+  
 }
 
 .actions button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  font-size: 18px; /* Tăng kích thước biểu tượng */
+  padding: 2rem;
+  
+
 }
 
 .actions button:hover {
   color: #c55a5a;
+}
+
+.actions button svg {
+  display: block; /* Đảm bảo các biểu tượng SVG hiển thị đúng */
 }
 
 footer {

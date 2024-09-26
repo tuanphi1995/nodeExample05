@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';  // Sử dụng axios để gọi API
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { FaTrash, FaEdit } from 'react-icons/fa'; // Import các biểu tượng từ React Icons
 
-export default function TreeList({ trees, setTrees, deleteTree }) {
+export default function TreeList({ trees, setTrees, deleteTree, editTree }) {
   useEffect(() => {
     // Gọi API để lấy dữ liệu cây từ Firestore thông qua Node.js
     const fetchTrees = async () => {
@@ -26,6 +27,11 @@ export default function TreeList({ trees, setTrees, deleteTree }) {
     }
   };
 
+  const handleEdit = (tree) => {
+    // Gọi hàm editTree để cập nhật trạng thái cho form
+    editTree(tree);
+  };
+
   return (
     <div className="tree-list">
       <table>
@@ -45,8 +51,15 @@ export default function TreeList({ trees, setTrees, deleteTree }) {
               <td>{tree.name}</td>
               <td><img src={tree.image} alt={tree.name} width="50" /></td>
               <td>{tree.description}</td>
-              <td>
-                <button onClick={() => handleDelete(tree.id)}>Delete</button>
+              <td className="actions">
+                {/* Nút xóa với biểu tượng thùng rác */}
+                <button onClick={() => handleDelete(tree.id)}>
+                  <FaTrash />
+                </button>
+                {/* Nút sửa với biểu tượng cây bút */}
+                <button onClick={() => handleEdit(tree)}>
+                  <FaEdit />
+                </button>
               </td>
             </tr>
           ))}
