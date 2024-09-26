@@ -50,6 +50,7 @@ export default function TreeList({ trees, setTrees, deleteTree, editTree }) {
               <td>{tree.id}</td>
               <td>{tree.name}</td>
               <td><img src={tree.image} alt={tree.name} width="50" /></td>
+
               <td>{tree.description}</td>
               <td className="actions">
                 {/* Nút xóa với biểu tượng thùng rác */}
