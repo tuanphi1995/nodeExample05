@@ -1,0 +1,132 @@
+/* Thiết lập chung */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App {
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  font-family: 'Georgia', serif;
+  color: #526246;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #eef2ed;
+  border-radius: 10px;
+}
+
+form label {
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #6f7966;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
+input[type="file"] {
+  margin-left: 10px;
+}
+
+button[type="submit"], button[type="reset"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #889488;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button[type="submit"]:hover, button[type="reset"]:hover {
+  background-color: #677a68;
+}
+
+button[type="reset"] {
+  background-color: #c5837c;
+}
+
+/* Danh sách cây */
+.tree-list {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: #d3e0d3;
+  font-weight: bold;
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  color: #4a5b45;
+}
+
+table img {
+  width: 50px;
+  border-radius: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  color: #c55a5a;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #888;
+}
