@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';  // Sử dụng axios để gửi request
 
 export default function TreeForm({ addTree }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newTree = { name, description, image };
-    addTree(newTree);
-    setName('');
-    setDescription('');
-    setImage('');
+
+    try {
+      // Gửi POST request tới API Node.js để thêm cây mới
+      const response = await axios.post('http://localhost:5000/trees', newTree);
+      addTree({ id: response.data.id, ...newTree });
+      setName('');
+      setDescription('');
+      setImage('');
+    } catch (err) {
+      console.error('Lỗi khi thêm cây mới:', err);
+    }
   };
 
   return (

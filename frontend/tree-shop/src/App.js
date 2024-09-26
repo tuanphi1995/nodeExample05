@@ -11,7 +11,7 @@ function App() {
   };
 
   const deleteTree = (id) => {
-    setTrees(trees.filter((tree, index) => index !== id));
+    setTrees(trees.filter((tree) => tree.id !== id));
   };
 
   return (
@@ -20,7 +20,7 @@ function App() {
         <h1>Tree Shop</h1>
       </header>
       <TreeForm addTree={addTree} />
-      <TreeList trees={trees} deleteTree={deleteTree} />
+      <TreeList trees={trees} setTrees={setTrees} deleteTree={deleteTree} />
     </div>
   );
 }
